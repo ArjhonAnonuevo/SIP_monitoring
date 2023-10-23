@@ -21,6 +21,7 @@ $sql = "CREATE TABLE IF NOT EXISTS month (
      username VARCHAR(255),
      PRIMARY KEY (file_id),
      FOREIGN KEY (username) REFERENCES interns_account(username)
+     
 )";
 
 if ($conn->query($sql) === TRUE) {
