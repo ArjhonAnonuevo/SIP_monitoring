@@ -74,9 +74,9 @@ $conn->close();
     <link rel="stylesheet" href="register.css">
 </head>
 
-<body>
-    <div class="container p-3">
-        <div class="card d-flex flex-column justify-content-between flex-wrap gap-1 shadow" style="padding: 3rem 2rem; padding-left:3rem;">
+<body style="background-color: rgba(0,0,0,0.03);">
+    <div class="container p-3 d-flex flex-row justify-content-center">
+        <div class="flex-row gap-2 p-0 d-flex flex-column justify-content-between flex-wrap gap-1 p-5 m-0" id="main-form">
             <div class="card-header">
                 <h2>Registration</h2>
             </div>
@@ -180,15 +180,13 @@ $conn->close();
                     </div>
 
                 </form>
-                <span>
-                    <div class="d-flex flex-row">
-                        <img class="img-fluid" src="https://th.bing.com/th/id/OIP.j_Q3KTsWwEgFiJeHVlz6NgHaJ4?pid=ImgDet&rs=1">
-                    </div>
-                </span>
 
             </div>
         </div>
     </div>
+    <div class="d-flex flex-row" id="right-image"> </div>
+
+    <!--  -->
     <script src="register.js"></script>
 </body>
 
