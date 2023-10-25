@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JavaScript OCR</title>
+  <title>OCR Scanner</title>
 </head>
 <body>
-    <h1>JavaScript OCR</h1>
-    <input type="file" accept=".jpg, .png, .jpeg" id="fileInput">
-    <button onclick="processImage()">Extract Text</button>
-    <div id="output">
-        <h2>Extracted Text:</h2>
-        <p id="extractedText"></p>
-    </div>
+  <input type="file" id="file-input">
+  <button id="recognize-button">Recognize Text</button>
+  <div id="output"></div>
 
-    <!-- Updated CDN link for tesseract.js -->
-    <script src="https://cdn.jsdelivr.net/gh/naptha/tesseract.js@2/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file-input');
+    const recognizeButton = document.getElementById('recognize-button');
+    const output = document.getElementById('output');
 
-    <script>
-        function processImage() {
-            const fileInput = document.getElementById('fileInput');
-            const output = document.getElementById('extractedText');
+    recognizeButton.addEventListener('click', async () => {
+      output.textContent = ''; // Clear previous output
 
-            if (fileInput.files.length > 0) {
-                const image = fileInput.files[0];
-                console.log(image); // Log the image to the console
+      const file = fileInput.files[0];
 
-                Tesseract.recognize(
-                    image,
-                    'eng',
-                    { logger: info => console.log(info) }
-                ).then(({ data: { text } }) => {
-                    output.textContent = text;
-                }).catch(error => console.error(error));
-            } else {
-                alert("Please select an image.");
-            }
+      if (file) {
+        try {
+          const worker = Tesseract.createWorker();
+          await worker.load();
+          await worker.loadLanguage('eng');
+          await worker.initialize('eng');
+          const { data: { text } } = await worker.recognize(file);
+          await worker.terminate();
+          output.textContent = text;
+        } catch (error) {
+          console.error(error);
+          output.textContent = "Error occurred during recognition.";
         }
-    </script>
+      } else {
+        output.textContent = "Please select an image file.";
+      }
+    });
+  </script>
 </body>
 </html>
