@@ -14,6 +14,10 @@
         #page2 input{
           width: auto !important;
         }
+        #page3 label::after {
+          content: " (PDF Format)";
+          color: red;
+        }
         
       </style>
     </head>
@@ -111,19 +115,19 @@
           <div class="card align-items-stretch" style="padding:3rem 5rem;">
             <h1 style="margin-bottom: 1rem">File Uploads</h1>
             <label for="school_id">Upload your School ID</label>
-            <input type="file" name="school_id" id="school_id" required style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="school_id" id="school_id" required style="width:100%;"><br>
             <label for="regi">Upload your Certificate of Registration</label>
-            <input type="file" name="regi" id="regi" required style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="regi" id="regi" required style="width:100%;"><br>
             <label for="schedule">Upload your Schedule</label>
-            <input type="file" name="schedule" id="schedule" require style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="schedule" id="schedule" require style="width:100%;"><br>
             <label for="form1">SIP Form 101 – Internship Application Form</label>
-            <input type="file" name="form1" id="form1" required style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="form1" id="form1" required style="width:100%;"><br>
             <label for="form2">SIP Form 102 – Essay Questionnaire</label>
-            <input type="file" name="form2" id="form2" required style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="form2" id="form2" required style="width:100%;"><br>
             <label for="form3">SIP Form 103 – Essay Questionnaire</label>
-            <input type="file" name="form3" id="form3" required style="width:100%;"><br>
+            <input accept=".pdf" type="file" name="form3" id="form3" required style="width:100%;"><br>
             <label for="form4">SIP Form 104 – Personal Data Sheet (CSC Form No. 212, Rev 2017)</label>
-            <input type="file" name="form4" id="form4" required style="width:100%;">
+            <input accept=".pdf" type="file" name="form4" id="form4" required style="width:100%;">
             <span class="d-flex flex-grow-1 align-self-stretch justify-content-between" style="margin-top: 1  rem">
               <button class="prev-page" data-prev="page2" type="button"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </button>
               <button class="btn btn-success" type="submit" value="<?php echo $_SESSION['form_token']; ?>">Submit</button>

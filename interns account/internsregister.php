@@ -74,117 +74,121 @@ $conn->close();
     <link rel="stylesheet" href="register.css">
 </head>
 
-<body style="background-color: rgba(0,0,0,0.03);">
-    <div class="container p-3 d-flex flex-row justify-content-center">
-        <div class="flex-row gap-2 p-0 d-flex flex-column justify-content-between flex-wrap gap-1 p-5 m-0" id="main-form">
-            <div class="card-header">
-                <h2>Registration</h2>
-            </div>
-            <div class="card-body d-flex">
-                <form id="registration-form" action="register_process.php" method="post">
-                    <!-- Page 1: Personal Information -->
-
-                    <div class="form-page" id="page-1">
-                        <div class="form-group d-flex flex-row justify-content-between gap-5">
-                            <span class="d-flex flex-column" style="width:49%;">
-                                <label for="name">First Name</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
-                            </span>
-
-                            <span class="d-flex flex-column" style="width:50%;">
-                                <label for="name">Last Name</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
-                            </span>
-                        </div>
-                        <div class="form-group d-flex flex-row gap-5">
-                            <span class="d-flex flex-column" style="width:50%;">
-                                <label for="age">Age</label>
-                                <input type="number" id="age" name="age" class="form-control" required>
-                            </span>
-                            <span class="d-flex flex-column" style="width:50%;">
-                                <label for="birthday">Birthday</label>
-                                <input type="date" id="birthday" name="birthday" class="form-control" required>
-                            </span>
-
-                        </div>
-                        <div class="form-group d-flex flex-column">
-                            <label for="contact-number">Contact Number</label>
-                            <input type="tel" id="contact-number" name="contact-number" class="form-control" required>
-                        </div>
-                        <div class="form-group d-flex flex-column">
-                            <label for="school">School</label>
-                            <input type="text" id="school" name="school" class="form-control" required>
-                        </div>
-                        <div class="form-group d-flex flex-column">
-                            <label for="course">Course</label>
-                            <input type="text" id="course" name="course" class="form-control" required>
-                        </div>
-                        <span>
-                            <div class="form-group">
-                                <label for="gender">Sex</label>
-                                <div class="form-check d-flex flex-row gap-5">
-                                    <span>
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            Male
-                                        </label>
-                                    </span>
-                                    <span>
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            Female
-                                        </label></span>
+<body style="background-color: rgba(0,0,0,0.03); height: 100vh;">
+    <div class="container p-3 d-flex flex-row justify-content-center align-items-center" style="height: 100%;">
+        <div class="d-flex flex-row">
+            <div class="card gap-2 p-0 flex-wrap gap-1 p-5 m-0" id="main-form">
+                <div class="card-header">
+                    <h2>Registration</h2>
+                </div>
+                <div class="card-body">
+                    <form id="registration-form" action="register_process.php" method="post">
+                        <!-- Page 1: Personal Information -->
+    
+                        <div class="form-page" id="page-1">
+                            <div class="form-group d-flex flex-row justify-content-between gap-5">
+                                <span class="d-flex flex-column" style="width:49%;">
+                                    <label for="name">First Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" required>
+                                </span>
+    
+                                <span class="d-flex flex-column" style="width:50%;">
+                                    <label for="name">Last Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" required>
+                                </span>
+                            </div>
+                            <div class="form-group d-flex flex-row gap-5">
+                                <span class="d-flex flex-column" style="width:50%;">
+                                    <label for="age">Age</label>
+                                    <input type="number" id="age" name="age" class="form-control" required>
+                                </span>
+                                <span class="d-flex flex-column" style="width:50%;">
+                                    <label for="birthday">Birthday</label>
+                                    <input type="date" id="birthday" name="birthday" class="form-control" required>
+                                </span>
+    
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <label for="contact-number">Contact Number</label>
+                                <input type="tel" id="contact-number" name="contact-number" class="form-control" required>
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <label for="school">School</label>
+                                <input type="text" id="school" name="school" class="form-control" required>
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <label for="course">Course</label>
+                                <input type="text" id="course" name="course" class="form-control" required>
+                            </div>
+                            <span>
+                                <div class="form-group">
+                                    <label for="gender">Sex</label>
+                                    <div class="form-check d-flex flex-row gap-5">
+                                        <span>
+                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Male
+                                            </label>
+                                        </span>
+                                        <span>
+                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Female
+                                            </label>
+                                        </span>
+                                    </div>
                                 </div>
-                        </span>
-                        <div class="d-flex justify-content-end mt-5">
-                            <button type="button" class="btn btn-primary next-page" data-next="page-2">Next</button>
+                            </span>
+                            <div class="d-flex justify-content-end mt-5">
+                                <button type="button" class="btn btn-primary next-page" data-next="page-2">Next</button>
+                            </div>
+    
                         </div>
-
-                    </div>
-
-
-                    <!-- Page 2: Additional Information -->
-                    <div class="form-page" id="page-2" style="display: none;">
-                        <div class="form-group">
-                            <label for="department">Designated Department</label>
-                            <input type="text" id="department" name="department" class="form-control" required>
+    
+    
+                        <!-- Page 2: Additional Information -->
+                        <div class="form-page" id="page-2" style="display: none;">
+                            <div class="form-group">
+                                <label for="department">Designated Department</label>
+                                <input type="text" id="department" name="department" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hours-required">Hours Required</label>
+                                <input type="number" id="hours-required" name="hours-required" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="emergency-contact">Emergency Contact</label>
+                                <input type="tel" id="emergency-contact" name="emergency-contact" class="form-control" required>
+                            </div>
+                            <button type="button" class="btn btn-secondary prev-page" data-prev="page-1">Previous</button>
+                            <button type="button" class="btn btn-primary next-page" data-next="page-3">Next</button>
                         </div>
-                        <div class="form-group">
-                            <label for="hours-required">Hours Required</label>
-                            <input type="number" id="hours-required" name="hours-required" class="form-control" required>
+    
+                        <!-- Page 3: Username and Password -->
+                        <div class="form-page" id="page-3" style="display: none;">
+                            <div class="form-group">
+                                <label for="id_name">Username</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
+                            </div>
+                            <button type="button" class="btn btn-secondary prev-page" data-prev="page-2">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-                        <div class="form-group">
-                            <label for="emergency-contact">Emergency Contact</label>
-                            <input type="tel" id="emergency-contact" name="emergency-contact" class="form-control" required>
-                        </div>
-                        <button type="button" class="btn btn-secondary prev-page" data-prev="page-1">Previous</button>
-                        <button type="button" class="btn btn-primary next-page" data-next="page-3">Next</button>
-                    </div>
-
-                    <!-- Page 3: Username and Password -->
-                    <div class="form-page" id="page-3" style="display: none;">
-                        <div class="form-group">
-                            <label for="id_name">Username</label>
-                            <input type="text" id="username" name="username" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-                        </div>
-                        <button type="button" class="btn btn-secondary prev-page" data-prev="page-2">Previous</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-
-                </form>
-
+    
+                    </form>
+    
+                </div>
             </div>
+            <div class="d-flex flex-row" id="right-image"> </div>
         </div>
     </div>
-    <div class="d-flex flex-row" id="right-image"> </div>
 
     <!--  -->
     <script src="register.js"></script>
