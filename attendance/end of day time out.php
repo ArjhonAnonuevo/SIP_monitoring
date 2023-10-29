@@ -76,7 +76,6 @@ if (isset($_POST['end_of_day_timeout'])) {
         echo "window.location.href = 'attendance form.php';</script>";
     }
 }
-
 // Close the database connection
 $mysqli->close();
 ?>
