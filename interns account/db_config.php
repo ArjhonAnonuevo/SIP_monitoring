@@ -21,6 +21,7 @@ if ($conn->connect_error) {
 $sql = "CREATE TABLE IF NOT EXISTS interns_profile (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     age INT,
     birthday DATE,
@@ -29,10 +30,10 @@ $sql = "CREATE TABLE IF NOT EXISTS interns_profile (
     course VARCHAR(255) NOT NULL,
     department VARCHAR(255) NOT NULL,
     hours_required INT,
-    emergency_contact VARCHAR(20) NOT NULL
-)";
+    emergency_contact VARCHAR(20) NOT NULL,
+    start_date DATE NOT NULL
+);
 $conn->query($sql);
-// Create the interns_account table with a foreign key reference
 $sql = "CREATE TABLE IF NOT EXISTS interns_account (
     username VARCHAR(255) PRIMARY KEY NOT NULL,
     profile_id INT NOT NULL,

@@ -1,69 +1,54 @@
 <?php
-include "../dashboard/dashboard_navs.php";
+session_start();
+// Check if the username is passed as a parameter
+if (isset($_GET["username"])) {
+   $username = $_GET["username"];
+} else {
+   // Check if the username is stored in the session
+   if (isset($_SESSION["username"])) {
+       $username = $_SESSION["username"];
+   } else {
+       // Handle the case when the username is not available
+       $username = "Unknown"; // Set a default value
+   }
+}
+include "../dashboard/admin_navs.php";
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <title>Applicants Information</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../css/dist/tailwind.min.css" rel="stylesheet">
     <style>
       body {
         background-color: #f8f9fa;
       }
       .container {
-        margin-top: 50px;
-      }
-      .accordion {
-        background-color: #28a745;
-        cursor: pointer;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-      }
-      .accordion i {
-        margin-right: 5px;
-      }
-      .panel {
-        background-color: #fff;
-        padding: 10px;
-        display: none;
-      }
-      .active {
-        background-color: #333;
-      }
-      .panel-content {
-        margin-top: 10px;
+        margin-top: 8rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="container mx-auto">
       <div class="card-header">
-        <h2 class="text-2xl font-bold mb-6 ">Student Applications</h2>
+        <h2 class="text-2xl font-bold mb-6 font-serif">Student Applications</h2>
       </div>
-      <div class="application-card ">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <input type="text" class="form-control" id="searchName" placeholder="Search by Name" oninput="filterTable()">
+      <div class="card bg-white shadow-md rounded-md p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+          <div>
+            <input type="text" class="form-input border border-solid border-gray-300 rounded-md p-2 w-full" id="searchID" placeholder="Search...." oninput="filterTable()">
           </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" id="searchEmail" placeholder="Search by Email" oninput="filterTable()">
-          </div>
-          <div class="col-md-12 mt-3">
-            <button class="btn btn-secondary" onclick="resetTable()">Reset</button>
+          <div class="col-span-2 mt-3">
+            <button class="btn bg-green-900 text-white rounded-md w-32 h-10 hover:bg-green-700" onclick="resetTable()">Reset</button>
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table class="table-auto w-full">
             <thead>
               <tr>
-                <th>Applicant ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Applicant ID</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
               </tr>
             </thead>
             <tbody id="data-container"></tbody>
@@ -78,63 +63,35 @@ include "../dashboard/dashboard_navs.php";
           .then(data => {
             const dataContainer = document.getElementById('data-container');
             data.forEach(row => {
-              const accordion = document.createElement('tr');
-              accordion.className = 'accordion';
-              accordion.innerHTML = `
-                            <td>${row.applicant_id}</td>
-                            <td>${row.given_name} ${row.middle_name} ${row.family_name}</td>
-                            <td>${row.primary_email}</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm" onclick="viewApplicant('${row.applicant_id}')">View</button>
-                            </td>
-                        `;
-              const panel = document.createElement('tr');
-              panel.className = 'panel';
-              const displayContent = document.createElement('td');
-              displayContent.className = 'panel-content';
-              displayContent.id = `displayContent-${row.applicant_id.replace('Applicant ', '')}`;
-              panel.appendChild(displayContent);
-              accordion.addEventListener('click', function() {
-                this.classList.toggle('active');
-                const panel = this.nextElementSibling;
-                if (panel.style.display === 'table-row') {
-                  panel.style.display = 'none';
-                } else {
-                  panel.style.display = 'table-row';
-                  const applicantId = this.querySelector('td:first-child').textContent;
-                  fetch(`display.php?id=${applicantId.replace('Applicant ', '')}`)
-                    .then(response => response.text())
-                    .then(data => {
-                      displayContent.innerHTML = data;
-                    })
-                    .catch(error => {
-                      console.error('Error fetching display.php:', error);
-                    });
-                }
-              });
-              dataContainer.appendChild(accordion);
-              dataContainer.appendChild(panel);
+              const rowElement = document.createElement('tr');
+              rowElement.innerHTML = `
+       <td class="px-5 py-3 sm:py-5 md:py-3 lg:py-5 xl:py-3 border-b border-gray-200 bg-white text-base">${row.applicant_id}</td>
+       <td class="px-5 py-3 sm:py-5 md:py-3 lg:py-5 xl:py-3 border-b border-gray-200 bg-white text-base">
+       <a href="display.php?id=${row.applicant_id.replace('Applicant ', '')}&email=${row.primary_email}&given_name=${encodeURIComponent(row.given_name)}" class="text-blue-500 hover:underline">${row.given_name} ${row.middle_name} ${row.family_name}</a>
+</td>
+
+     <td class="px-5 py-3 sm:py-5 md:py-3 lg:py-5 xl:py-3 border-b border-gray-200 bg-white text-base">${row.primary_email}</td>
+       `;
+              dataContainer.appendChild(rowElement);
             });
           });
       });
-      function viewApplicant(applicantId) {
-        // Perform the action to view the applicant with the given ID
-        console.log('View applicant:', applicantId);
-      }
       function resetTable() {
-        document.getElementById('searchName').value = '';
-        document.getElementById('searchEmail').value = '';
+        document.getElementById('searchID').value = '';
         // Reload the page to reset all fields and data
         location.reload();
       }
       function filterTable() {
-        const searchName = document.getElementById('searchName').value.toLowerCase();
-        const searchEmail = document.getElementById('searchEmail').value.toLowerCase();
-        const rows = document.querySelectorAll('#data-container .accordion');
+        const searchInput = document.getElementById('searchID').value.toLowerCase();
+        const rows = document.querySelectorAll('#data-container tr');
         rows.forEach(row => {
-          const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-          const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-          if (name.includes(searchName) && email.includes(searchEmail)) {
+          let match = false;
+          row.querySelectorAll('td').forEach(cell => {
+            if (cell.textContent.toLowerCase().includes(searchInput)) {
+              match = true;
+            }
+          });
+          if (match) {
             row.style.display = '';
           } else {
             row.style.display = 'none';

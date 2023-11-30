@@ -1,91 +1,138 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>File Upload Form</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .file-input {
-      margin-bottom: 10px;
-    }
-    .file-input.drag-over {
-      border: 2px dashed #007bff;
-    }
-    .file-preview {
-      margin-top: 10px;
-      max-width: 10px; 
-      height: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>File Upload Form</h1>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-      <div id="file-input-container">
-        <!-- Initial file input -->
-        <div class="custom-file">
-          <input type="file" name="files[]" class="custom-file-input file-input" id="file-input-1">
-          <label class="custom-file-label" for="file-input-1" style="display: none;">Choose file</label> 
-        </div>
-        <div class="file-preview" id="file-preview-1"></div>
-      </div>
-      <button type="button" class="btn btn-primary mt-3" onclick="addFileInput()">Add Another File</button>
-      <br>
-      <input type="submit" class="btn btn-success mt-3" value="Upload">
-    </form>
-  </div>
+  <head>
+    <title>Applicants Information</title>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-   function addFileInput() {
-      var container = document.getElementById("file-input-container");
-      var inputIndex = container.childElementCount + 1;
-      
-      // Create a new file input element
-      var fileInput = document.createElement("div");
-      fileInput.className = "custom-file";
-      fileInput.innerHTML = `
-        <input type="file" name="files[]" class="custom-file-input file-input" id="file-input-${inputIndex}">
-        <label class="custom-file-label" for="file-input-${inputIndex}">Choose file</label>
-        <div class="file-preview" id="file-preview-${inputIndex}"></div>
-      `;
-      
-      // Append the new file input to the container
-      container.appendChild(fileInput);
-      
-      // Add an event listener to the new file input
-      fileInput.querySelector('.file-input').addEventListener('change', handleFileInputChange);
-      handleFileInputChange.call(fileInput.querySelector('.file-input'));
-    }
+    <!-- <link href="../css/dist/bootstrap.min.css" rel="stylesheet">  -->
 
-    function handleFileInputChange() {
-      var fileInput = this;
-      var fileName = fileInput.files[0].name;
-      fileInput.nextElementSibling.innerText = fileName;
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 
-      // Check if the file is an image
-      if (fileInput.files[0].type.startsWith('image/')) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var preview = fileInput.closest('.custom-file').querySelector('.file-preview');
-          preview.innerHTML = '<img src="' + e.target.result + '">';
-        };
-        reader.readAsDataURL(fileInput.files[0]);
-      } else {
-        var preview = fileInput.closest('.custom-file').querySelector('.file-preview');
-        preview.innerHTML = '<pre>' + fileName + '</pre>';
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <link href="../css/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      body {
+        background-color: #f8f9fa;
       }
+      .search-input {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 8px;
+        width: 100%;
+      }
+      .table th,
+      .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <?php
+    session_start();
+    // Check if the username is passed as a parameter
+    if (isset($_GET["username"])) {
+        $username = $_GET["username"];
+    } else {
+        // Check if the username is stored in the session
+        if (isset($_SESSION["username"])) {
+            $username = $_SESSION["username"];
+        } else {
+            // Handle the case when the username is not available
+            $username = "Unknown"; // Set a default value
+        }
     }
-
-    // Add event listeners to existing file input elements
-    var fileInputs = document.querySelectorAll('.file-input');
-    fileInputs.forEach(function (fileInput) {
-      fileInput.addEventListener('change', function() {
-        handleFileInputChange.call(this);
-      });
-    });
-  </script>
-</body>
+      include "../dashboard/admin_navs.php";
+    ?>
+    <div class="container mx-auto flex flex-col justify-center mt-7">
+      <div class="py-8">
+        <h2 class="text-2xl font-bold font-serif">Attendace Display</h2>
+        <div class="shadow overflow-hidden rounded border-b border-gray-200">
+          <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+              <thead>
+                <tr>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Department</th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Username</th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="data-container" class="hover:bg-gray-200">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <script>
+          function resetTable() {
+            document.getElementById('searchName').value = '';
+            // Reload the page to reset all fields and data
+            location.reload();
+          }
+          function filterTable() {
+            const searchValue = document.getElementById('searchName').value.toLowerCase();
+            const rows = document.querySelectorAll('#data-container tr');
+            rows.forEach(row => {
+              const name = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+              const department = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+              if (name.includes(searchValue) || department.includes(searchValue)) {
+                row.style.display = '';
+              } else {
+                row.style.display = 'none';
+              }
+            });
+          }
+          // Make an AJAX request to fetch the data from the PHP script
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'interns_name.php', true);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var jsonData = JSON.parse(xhr.responseText);
+              displayData(jsonData);
+            }
+          };
+          xhr.send();
+          // Function to display the data in a table
+          function displayData(data) {
+            var container = document.getElementById('data-container');
+            data.forEach(function(rowData) {
+              var row = document.createElement('tr');
+              // Create a new object to store the modified row data
+              var modifiedRowData = {
+                name: rowData.name,
+                department: rowData.department,
+                sip_number: rowData.username,
+                // actions: rowData.actions
+              };
+              Object.entries(modifiedRowData).forEach(function([key, value]) {
+                var cell = document.createElement('td');
+                cell.textContent = value;
+                cell.className = "border px-8 py-3";
+                row.appendChild(cell);
+              });
+              var actionsCell = document.createElement('td');
+              var viewButton = document.createElement('button');
+              viewButton.textContent = 'View';
+              viewButton.className = 'btn bg-green-900 rounded text-white md:w-20';
+              // Pass the username as a parameter to the event listener function
+              viewButton.addEventListener('click', function() {
+                var username = rowData.username;
+                redirectToCertificationsForm(username);
+              });
+              actionsCell.appendChild(viewButton);
+              row.appendChild(actionsCell);
+              container.appendChild(row);
+            });
+          }
+          // Function to redirect to the certifications form with the username as a parameter
+          function redirectToCertificationsForm(username) {
+            window.location.href = `upload.php?username=${encodeURIComponent(username)}`;
+          }
+        </script>
+  </body>
 </html>

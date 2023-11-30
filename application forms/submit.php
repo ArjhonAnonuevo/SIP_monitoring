@@ -8,9 +8,22 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+function isGmail($email) {
+    $email = trim($email); // in case there's any whitespace
+    return mb_substr($email, -10) === '@gmail.com';
+  }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $primary_email = $_POST["primary_email"];
+    if (!filter_var($primary_email, FILTER_VALIDATE_EMAIL)) {
+        echo '<script>alert("Invalid email format"); window.location.href = "forms.php";</script>';
+        exit;
+    }
+    if (!isGmail($primary_email)) {
+        echo '<script>alert("Only Gmail addresses are accepted"); window.location.href = "forms.php";</script>';
+        exit;
+    }
+ 
     $sql_check = "SELECT * FROM application WHERE primary_email = ?";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->bind_param("s", $primary_email);

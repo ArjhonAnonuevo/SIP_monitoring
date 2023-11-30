@@ -1,145 +1,180 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Login</title>
+    <link href="../css/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
+      <div class="flex shadow-md">
+        <div class="flex flex-wrap content-center justify-center rounded-lg bg-white" style="width: 34rem; height: 32rem;">
+          <div class="w-full sm:w-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg">
 
-<head>
-    <title>Registration</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="style1.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="register.css">
-    <style>
-        /* Additional CSS for image container */
-        #right-image {
-            background-image: url('sec.png'); /* Set the image path */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            width: 50%; /* Adjust the width as needed */
-        }
-    </style>
-</head>
+            <!-- Heading -->
+            <h1 class="text-xl font-semibold mb-10 font-serif">Registration</h1>
 
-<body style="background-color: rgba(0,0,0,0.03); height: 100vh;">
-    <div class="container p-3 d-flex flex-row justify-content-center align-items-center" style="height: 100%;">
-        <div class="d-flex flex-row">
-            <div class="card gap-2 p-0 flex-wrap gap-1 p-5 m-0" id="main-form">
-                <div class="card-header">
-                    <h2>Registration</h2>
+            <!-- Form -->
+            <form action="register_process.php" method="post" class="mt-4 flex flex-col">
+              <div class="form-page" id="page-1">
+                <div class="mb-3 flex">
+                  <div class="mr-3">
+                    <label for="fname" class=" relative mb-2 block text-xs font-semibold">First Name <span class="text-red-600">*</span></label>
+                    <input type="text" placeholder="Enter your Name" id="fname" name="fname" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                  </div>
+                  <div class="mr-3">
+                    <label class="mb-2 block text-xs font-semibold">Middle Name <span class="required text-red-600">*</span></label>
+                    <input type="text" id="mname" name="mname" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                  </div>
+                  <div>
+                    <label class="mb-2 block text-xs font-semibold">Last Name <span class="required text-red-600">*</span></label>
+                    <input type="text" id="lname" name="lname" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                  </div>
                 </div>
-                <div class="card-body">
-                    <form id="registration-form" action="register_process.php" method="post">
-                        <!-- Page 1: Personal Information -->
-    
-                        <div class="form-page" id="page-1">
-                            <div class="form-group d-flex flex-row justify-content-between gap-5">
-                                <span class="d-flex flex-column" style="width:49%;">
-                                    <label for="name">First Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" required>
-                                </span>
-    
-                                <span class="d-flex flex-column" style="width:50%;">
-                                    <label for="name">Last Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" required>
-                                </span>
-                            </div>
-                            <div class="form-group d-flex flex-row gap-5">
-                                <span class="d-flex flex-column" style="width:50%;">
-                                    <label for="age">Age</label>
-                                    <input type="number" id="age" name="age" class="form-control" required>
-                                </span>
-                                <span class="d-flex flex-column" style="width:50%;">
-                                    <label for="birthday">Birthday</label>
-                                    <input type="date" id="birthday" name="birthday" class="form-control" required>
-                                </span>
-    
-                            </div>
-                            <div class="form-group d-flex flex-column">
-                                <label for="contact-number">Contact Number</label>
-                                <input type="tel" id="contact-number" name="contact-number" class="form-control" required>
-                            </div>
-                            <div class="form-group d-flex flex-column">
-                                <label for="school">School</label>
-                                <input type="text" id="school" name="school" class="form-control" required>
-                            </div>
-                            <div class="form-group d-flex flex-column">
-                                <label for="course">Course</label>
-                                <input type="text" id="course" name="course" class="form-control" required>
-                            </div>
-                            <span>
-                                <div class="form-group">
-                                    <label for="gender">Sex</label>
-                                    <div class="form-check d-flex flex-row gap-5">
-                                        <span>
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                Male
-                                            </label>
-                                        </span>
-                                        <span>
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                Female
-                                            </label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <div class="d-flex justify-content-end mt-5">
-                                <button type="button" class="btn btn-primary next-page" data-next="page-2">Next</button>
-                            </div>
-    
-                        </div>
-    
-    
-                        <!-- Page 2: Additional Information -->
-                        <div class="form-page" id="page-2" style="display: none;">
-                            <div class="form-group">
-                                <label for="department">Designated Department</label>
-                                <input type="text" id="department" name="department" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="hours-required">Hours Required</label>
-                                <input type="number" id="hours-required" name="hours-required" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="emergency-contact">Emergency Contact</label>
-                                <input type="tel" id="emergency-contact" name="emergency-contact" class="form-control" required>
-                            </div>
-                            <button type="button" class="btn btn-secondary prev-page" data-prev="page-1">Previous</button>
-                            <button type="button" class="btn btn-primary next-page" data-next="page-3">Next</button>
-                        </div>
-    
-                        <!-- Page 3: Username and Password -->
-                        <div class="form-page" id="page-3" style="display: none;">
-                            <div class="form-group">
-                                <label for="id_name">Username</label>
-                                <input type="text" id="username" name="username" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" id="password" name="password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm-password">Confirm Password</label>
-                                <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-                            </div>
-                            <button type="button" class="btn btn-secondary prev-page" data-prev="page-2">Previous</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-    
-                    </form>
-    
+                <div class="mb-3 flex">
+                  <div class="mr-2">
+                    <label class="mb-2 block text-xs font-semibold">Age<span class="text-red-600">*</span></label>
+                    <input type="number" id="age" name="age" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" readonly />
+                  </div>
+                  <div>
+                    <label class="mb-2 block text-xs font-semibold">Birthday<span class="text-red-600">*</span></label>
+                    <input type="date" id="birthday" name="birthday" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" onchange="calculateAge()" />
+                  </div>
                 </div>
-            </div>
-            <div class="d-flex flex-row" id="right-image"> </div>
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold">Contact Number<span class="text-red-600">*</span></label>
+                  <input type="tel" placeholder="Enter your Contacts" id="contact-number" name="contact-number" class="md:w-auto block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3 flex">
+                  <div class="mr-2">
+                    <label class="mb-2 block text-xs font-semibold">School<span class="text-red-600">*</span></label>
+                    <input type="text" id="school" name="school" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                  </div>
+                  <div>
+                    <label class="mb-2 block text-xs font-semibold">Course<span class="text-red-600">*</span></label>
+                    <input type="text" id="course" name="course" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="gender" class="text-xs font-semibold">Sex<span class="text-red-600">*</span></label>
+                  <div class="flex gap-5">
+                    <label class="flex items-center">
+                      <input type="radio" name="gender" value="male" checked class="form-radio text-indigo-600">
+                      <span class="ml-2">Male</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="gender" value="female" class="form-radio text-indigo-600">
+                      <span class="ml-2">Female</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <button class="mb-1.5 block w-40 text-center text-white bg-green-800 rounded-md md:w-20 mt-5 hover:bg-green-700 -px-2 py-1.5" data-current="page-1" data-next="page-2">Next</button>
+                </div>
+              </div>
+              <div class="form-page hidden" id="page-2">
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold" for="department">Department<span class="text-red-600">*</span></label>
+                  <select id="department" name="department" class="block w-full rounded-md border  border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500">
+                    <option value="ictd">ICTD</option>
+                    <option value="crmd">CRMD</option>
+                    <option value="fmd">FMD</option>
+                    <option value="hrad">HRAD</option>
+                    <option value="cgfd">CGFD</option>
+                    <option value="eipd">EIPD</option>
+                    <option value="ertd">ERTD</option>
+                    <option value="ocs">OCS</option>
+                    <option value="commisioners">COMMISSIONERS</option>
+                    <option value="ogc">OGC</option>
+                    <option value="oga">OGA</option>
+                    <option value="msrd">MSRD</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold">Hours Required<span class="text-red-600">*</span></label>
+                  <input type="number" id="hours-required" name="hours-required" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold">Emergency contact<span class="text-red-600">*</span></label>
+                  <input type="tel" id="emergency-contact" name="emergency-contact" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3 flex justify-between">
+                  <button class="mb-1.5 block w-20 rounded text-center text-white bg-green-800 hover-bg-green-700 -px-2 py-1.5" data-current="page-2" data-prev="page-1">Previous</button>
+                  <button class="mb-1.5 block w-20 rounded text-center text-white bg-green-800 hover-bg-green-700 -px-2 py-1.5" data-current="page-2" data-next="page-3">Next</button>
+                </div>
+              </div>
+              <div class="form-page hidden" id="page-3">
+                <div class="mb-3 ">
+                  <label class="mb-2 block text-xs font-semibold">Username<span class="text-red-600">*</span></label>
+                  <input type="text" id="username" name="username" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold">Password<span class="text-red-600">*</span></label>
+                  <input type="password" placeholder="*********" id="password" name="password" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3">
+                  <label class="mb-2 block text-xs font-semibold">Confirm Password<span class="text-red-600">*</span></label>
+                  <input type="password" placeholder="*********" id="confirm-password" name="confirm-password" class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+                </div>
+                <div class="mb-3 flex justify-between">
+                  <button class="mb-1.5 block md:w-20 rounded text-center text-white bg-green-800 hover-bg-green-700 -px-2 py-1.5" data-current="page-3" data-prev="page-2">Previous</button>
+                  <button type="submit" class="mb-1.5 block rounded md:w-20 text-center text-white bg-green-800 hover-bg-green-700 -px-2 py-1.5" data-current="page-3">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+        <div class="flex flex-wrap content-center justify-center rounded-lg" style="width: 24rem; height: 32rem;">
+          <img class="w-full h-full bg-center bg-no-repeat bg-cover rounded-r-md" src="sec.png">
+        </div>
+      </div>
     </div>
-
-    <!--  -->
-    <script src="register.js"></script>
-</body>
-
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Get all form pages
+        const formPages = document.querySelectorAll(".form-page");
+        // Get all "Next" buttons
+        const nextButtons = document.querySelectorAll("[data-next]");
+        // Get all "Previous" buttons
+        const prevButtons = document.querySelectorAll("[data-prev]");
+        // Add click event listeners to "Next" buttons
+        nextButtons.forEach((button) => {
+          button.addEventListener("click", function(event) {
+            event.preventDefault();
+            const currentPageId = this.getAttribute("data-current");
+            const nextPageId = this.getAttribute("data-next");
+            showPage(currentPageId, nextPageId);
+          });
+        });
+        prevButtons.forEach((button) => {
+          button.addEventListener("click", function(event) {
+            event.preventDefault();
+            const currentPageId = this.getAttribute("data-current");
+            const prevPageId = this.getAttribute("data-prev");
+            showPage(currentPageId, prevPageId);
+          });
+        });
+        // Function to show a specific form page
+        function showPage(currentPageId, nextPageId) {
+          const currentPage = document.getElementById(currentPageId);
+          const nextPage = document.getElementById(nextPageId);
+          if (currentPage && nextPage) {
+            currentPage.classList.add("hidden");
+            nextPage.classList.remove("hidden");
+          }
+        }
+        // Show the initial form page
+        showPage("page-1", "page-1"); // Show page 1 initially
+      });
+      function calculateAge() {
+        var birthday = new Date(document.getElementById("birthday").value);
+        var today = new Date();
+        var age = today.getFullYear() - birthday.getFullYear();
+        var monthDiff = today.getMonth() - birthday.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+          age--;
+        }
+        document.getElementById("age").value = age;
+      }
+    </script>
+  </body>
 </html>

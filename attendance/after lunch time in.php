@@ -9,6 +9,7 @@ $mysqli = new mysqli($hostname, $username, $password, $database_name);
 
 if (isset($_POST['after_lunch_timein'])) {
     $after_lunch_timein = $_POST['after_lunch_timein'];
+    date_default_timezone_set('Asia/Manila');
     $attendance_date = date('Y-m-d'); // Get the current date
 
     // Check if a record exists for the current date
@@ -33,7 +34,6 @@ if (isset($_POST['after_lunch_timein'])) {
             echo "<script>alert('Error updating After Lunch Time-In: " . $stmt_update->error . "');";
             echo "window.location.href = 'attendance form.php';</script>";
         }
-
         $stmt_update->close();
     } else {
         // No record found for the current date, display an alert and redirect

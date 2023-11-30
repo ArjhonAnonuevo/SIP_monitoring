@@ -21,7 +21,7 @@ if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         // Construct the "applicant_id" field as "Applicant [id]"
         $row['applicant_id'] = "Applicant " . $row['id'];
-        unset($row['id']); // Remove the 'id' field if you don't need it separately
+        unset($row['id']); 
         $data[] = $row;
     }
 }

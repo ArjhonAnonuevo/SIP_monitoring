@@ -9,6 +9,7 @@ $mysqli = new mysqli($hostname, $username, $password, $database_name);
 
 if (isset($_POST['end_of_day_timeout'])) {
     $end_of_day_timeout = $_POST['end_of_day_timeout'];
+    date_default_timezone_set('Asia/Manila');
     $attendance_date = date('Y-m-d'); 
 
     // Check if a record exists for the current date

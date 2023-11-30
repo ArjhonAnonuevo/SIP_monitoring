@@ -47,7 +47,7 @@
         <div class="card-body">
           <h5 class="card-title">Attendance</h5>
           <p class="card-text">Click to view attendance records.</p>
-          <a href="attendance.php" class="btn btn-success btn-sea-green">View</a>
+          <a href="../attendance/attendance form.php" class="btn btn-success btn-sea-green">View</a>
         </div>
       </div>
     </div>

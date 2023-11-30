@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     var fileNameElement = document.getElementById("fileName");
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "display1.php", true);
+    xhr.open("GET", "display2.php", true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -32,4 +32,3 @@ if (previousMonthIndex < 0) {
 var previousMonthName = monthNames[previousMonthIndex];
 
 document.getElementById("nextMonth").textContent = "You can now upload montly reports for the month of " + previousMonthName;
-

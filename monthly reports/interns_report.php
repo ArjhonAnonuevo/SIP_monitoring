@@ -13,7 +13,7 @@ if (!$conn) {
 }
 
 // Step 2: Execute the SQL query using prepared statements
-$query = "SELECT interns_profile.id, interns_profile.name, interns_profile.department, interns_account.username
+$query = "SELECT interns_profile.id, interns_profile.name, interns_profile.mname,interns_profile.lname, interns_profile.department, interns_account.username
 FROM interns_profile
 JOIN interns_account ON interns_profile.id = interns_account.profile_id";
 
@@ -33,7 +33,7 @@ if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         // Construct the "profile_id" field as "Applicant [id]"
         // $row['profile_id'] = $row['profile_id'];
-        // unset($row['profile_id']); // Remove the 'id' field if you don't need it separately
+        // unset($row['profile_id']);
         $data[] = $row;
     }
 }
