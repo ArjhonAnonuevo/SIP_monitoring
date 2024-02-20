@@ -1,58 +1,30 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const formPages = document.querySelectorAll(".form-page");
-  const nextButtons = document.querySelectorAll(".next-page");
-  const prevButtons = document.querySelectorAll(".prev-page");
+function goToNextPage() {
+  // Hide the current page by adding the 'hidden' class
+  document.getElementById('page1').classList.add('hidden');
+  // Show the next page by removing the 'hidden' class
+  document.getElementById('page2').classList.remove('hidden');
+}
 
-  formPages.forEach((page, index) => {
-    if (index !== 0) {
-      page.style.display = "none";
-    }
-  });
+  var modal = document.getElementById("myModal");
+  var acceptBtn = document.getElementById("accept");
 
-  let currentPageIndex = 0;
+  // Check if modal and acceptBtn exist
+  if (modal && acceptBtn) {
+    // Show the modal on load
+    window.onload = function() {
+      modal.style.display = "block";
+    };
 
-  nextButtons.forEach(button => {
-    button.addEventListener("click", function() {
-      if (currentPageIndex < formPages.length - 1) {
-        formPages[currentPageIndex].style.display = "none";
-        currentPageIndex++;
-        formPages[currentPageIndex].style.display = "block";
+    // Hide the modal when the accept button is clicked
+    acceptBtn.onclick = function(event) {
+      event.preventDefault(); // Prevent any default action
+      modal.style.display = "none";
+    };
+
+    // Hide the modal when clicking outside of it
+    modal.addEventListener('click', function(event) {
+      if (event.target === this) {
+        modal.style.display = "none";
       }
-    });
-  });
-
-  prevButtons.forEach(button => {
-    button.addEventListener("click", function() {
-      if (currentPageIndex > 0) {
-        formPages[currentPageIndex].style.display = "none";
-        currentPageIndex--;
-        formPages[currentPageIndex].style.display = "block";
-      }
-    });
-  });
-});
-
-
-var modal = document.getElementById("myModal");
-
-var acceptBtn = document.getElementById("accept");
-var declineBtn = document.getElementById("decline");
-
-window.onload = function() {
-  modal.style.display = "block";
-}
-
-acceptBtn.onclick = function() {
-  modal.style.display = "none";
-
-}
-
-declineBtn.onclick = function() {
-  modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    }, false);
+  };

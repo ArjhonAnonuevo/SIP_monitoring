@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_SESSION['username'];
 
     // Fetch the corresponding names from interns_profile table
-    $fetchNamesQuery = "SELECT x`";
+    $fetchNamesQuery = "SELECT name, mname, lname FROM interns_profile WHERE ";
     $stmt = $conn->prepare($fetchNamesQuery);
     if ($stmt === false) {
         die("Error preparing statement: " . $conn->error);

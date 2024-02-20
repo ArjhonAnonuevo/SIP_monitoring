@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -7,46 +9,34 @@ $dbname = "interns_application";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+} else {
+    error_log("Database connection successful");
 }
+
 function isGmail($email) {
-    $email = trim($email); // in case there's any whitespace
+    $email = trim($email);
     return mb_substr($email, -10) === '@gmail.com';
-  }
+}
+
+function generateControlNumber($length = 8) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $controlNumber = '';
+    for ($i = 0; $i < $length; $i++) {
+        $controlNumber .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $controlNumber;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $primary_email = $_POST["primary_email"];
-    if (!filter_var($primary_email, FILTER_VALIDATE_EMAIL)) {
-        echo '<script>alert("Invalid email format"); window.location.href = "forms.php";</script>';
-        exit;
-    }
-    if (!isGmail($primary_email)) {
-        echo '<script>alert("Only Gmail addresses are accepted"); window.location.href = "forms.php";</script>';
-        exit;
-    }
- 
-    $sql_check = "SELECT * FROM application WHERE primary_email = ?";
-    $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bind_param("s", $primary_email);
-    $stmt_check->execute();
-    $result_check = $stmt_check->get_result();
-    if ($result_check->num_rows > 0) {
-        echo '<script>alert("You have already responded.");</script>';
-        echo '<script>window.location.href = "responded.php";</script>';
-        exit;
-    }
-}
-    $given_name = $_POST["given_name"];
-    $middle_name = $_POST["middle_name"];
-    $family_name = $_POST["family_name"];
-    $address = $_POST["address"];
-    $place_birth = $_POST["place_birth"];
-    $birthday = $_POST["birthday"];
-    $age = $_POST["age"];
-    $gender = $_POST["gender"];
-    $contact = $_POST["contact"];
-    $landline = $_POST["landline"];
-    $primary_email = $_POST["primary_email"];
-    $secondary_email = $_POST["secondary_email"];
+    $_SESSION["primary_email"] = $_POST["primary_email"];
+    $primary_email = $_SESSION["primary_email"];
+
+    // Debugging session values
+    error_log("Session primary_email: " . $_SESSION["primary_email"]);
+    error_log("Session given_name: " . $_SESSION["given_name"]);
+    error_log("Session family_name: " . $_SESSION['family_name']);
+
+    // Move the file contents retrieval here
     $school_id = file_get_contents($_FILES["school_id"]["tmp_name"]);
     $regi = file_get_contents($_FILES["regi"]["tmp_name"]);
     $schedule = file_get_contents($_FILES["schedule"]["tmp_name"]);
@@ -55,22 +45,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $form3 = file_get_contents($_FILES["form3"]["tmp_name"]);
     $form4 = file_get_contents($_FILES["form4"]["tmp_name"]);
 
-    $sql = "INSERT INTO application (given_name, middle_name, family_name, address, place_birth, birthday, age, gender, contact, landline, primary_email, secondary_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $_SESSION["given_name"] = $_POST["given_name"];
+    $_SESSION['family_name'] = $_POST["family_name"];
+
+    $randomControlNumber = generateControlNumber();
+    date_default_timezone_set('Asia/Manila');
+    $application_date = date('Y-m-d'); // This will give you the current date in the 'YYYY-MM-DD' format in Asia/Manila timezone
+
+    $sql = "INSERT INTO application (control_number, given_name, middle_name, family_name, address, place_birth, birthday, age, gender, contact, landline, primary_email, secondary_email, application_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        die('Failed to prepare statement: ' . htmlspecialchars($conn->error));
+    }
+
     $stmt->bind_param(
-        "ssssssssssss",
-        $given_name,
-        $middle_name,
-        $family_name,
-        $address,
-        $place_birth,
-        $birthday,
-        $age,
-        $gender,
-        $contact,
-        $landline,
+        "ssssssssssssss",
+        $randomControlNumber,
+        $_SESSION["given_name"],
+        $_POST["middle_name"],
+        $_SESSION['family_name'],
+        $_POST["address"],
+        $_POST["place_birth"],
+        $_POST["birthday"],
+        $_POST["age"],
+        $_POST["gender"],
+        $_POST["contact"],
+        $_POST["landline"],
         $primary_email,
-        $secondary_email
+        $_POST["secondary_email"],
+        $application_date
     );
 
     if ($stmt->execute()) {
@@ -88,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $form3,
             $form4
         );
+
         if ($stmt_files->execute()) {
             $file_id = $conn->insert_id;
             $school_name = $_FILES["school_id"]["name"];
@@ -113,17 +118,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             );
 
             if ($stmt_file_names->execute()) {
-                echo '<script>alert("Form submitted successfully!");</script>';
-                echo '<script>window.location.href = "confirmation.php";</script>';
-                exit();
+                $response = array(
+                    'status' => 'success',
+                    'message' => 'Form submitted successfully!',
+                );
             } else {
-            echo "Error inserting into files table: " . $stmt_files->error;
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Error inserting into file_names table: ' . $stmt_file_names->error
+                );
+            }
+        } else {
+            $response = array(
+                'status' => 'error',
+                'message' => 'Error inserting into files table: ' . $stmt_files->error
+            );
         }
     } else {
-        echo "Error inserting into application table: " . $stmt->error;
+        $response = array(
+            'status' => 'error',
+            'message' => 'Error inserting in the database: ' . $stmt->error
+        );
     }
     $stmt->close();
     $stmt_files->close();
-    $conn->close();
+    echo json_encode($response);
+    exit();
 }
+
+$conn->close();
 ?>

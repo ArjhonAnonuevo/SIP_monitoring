@@ -71,7 +71,7 @@ export class DOMCMapReaderFactory extends BaseCMapReaderFactory {
      * @ignore
      */
     _fetchData(url: any, compressionType: any): Promise<{
-        cMapData: any;
+        cMapData: Uint8Array;
         compressionType: any;
     }>;
 }
@@ -98,7 +98,7 @@ export class DOMStandardFontDataFactory extends BaseStandardFontDataFactory {
     /**
      * @ignore
      */
-    _fetchData(url: any): Promise<any>;
+    _fetchData(url: any): Promise<Uint8Array>;
 }
 export class DOMSVGFactory extends BaseSVGFactory {
     /**
@@ -106,6 +106,7 @@ export class DOMSVGFactory extends BaseSVGFactory {
      */
     _createSVG(type: any): any;
 }
+export function fetchData(url: any, type?: string): Promise<any>;
 export function getColorValues(colors: any): void;
 export function getCurrentTransform(ctx: any): any[];
 export function getCurrentTransformInverse(ctx: any): any[];

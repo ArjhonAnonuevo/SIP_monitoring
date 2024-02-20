@@ -1,11 +1,23 @@
 {
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.9",
-    "fullcalendar": "^6.1.9",
+    "fullcalendar": "^5.10.2",
     "html5-qrcode": "^2.3.8",
-    "pdfjs-dist": "^4.0.189"
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "pdfjs-dist": "^4.0.379"
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.5"
-  }
+    "tailwindcss": "^3.4.1"
+  },
+  "name": "sip",
+  "version": "1.0.0",
+  "main": "carousel script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": " tailwindcss -i ./src/input.css -o ./css/dist/output.css --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

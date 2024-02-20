@@ -11,7 +11,7 @@
           <div class="w-full sm:w-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg">
 
             <!-- Heading -->
-            <h1 class="text-xl font-semibold mb-10 font-serif">Registration</h1>
+            <h1 class="text-xl md:flex md:justify-center font-semibold mb-10 font-serif">Registration</h1>
 
             <!-- Form -->
             <form action="register_process.php" method="post" class="mt-4 flex flex-col">

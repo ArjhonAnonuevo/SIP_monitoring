@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 // Check if the username is passed as a parameter
 if (isset($_GET["username"])) {
     $username = $_GET["username"];
@@ -13,33 +14,33 @@ if (isset($_GET["username"])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href=" ../css/dist/tailwind.min.css" rel="stylesheet"> 
+    <link href="../css/dist/tailwind.min.css" rel="stylesheet">
     <title>Uploaded Files</title>
 </head>
 
-<body>
-    <?php
-    include "../dashboard/dashboard_navs.php";
-    ?>
-    <div class="overflow-auto">
-        <div class="bg-gray-200 shadow-md rounded-lg p-4 overflow-auto">
-            <span class="text-2xl font-bold" style="font-family: 'Karma';">Your Certificates</span>
-            <ul class="flex flex-col py-4 space-y-1">
-                <li class="px-5">
-                    <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-serif">List: </div>
-                    </div>
-                    <?php include "display.php"; ?>
-                </li>
-            </ul>
+<body class="bg-gray-100">
+
+    <?php include "../dashboard/dashboard_navs.php"; ?>
+
+    <div class="container mx-auto mt-8">
+        <div class="bg-white shadow-lg rounded-lg p-8">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-transparent text-gray-700 bg-clip-text">
+                Certificates
+            </h1>
+
+            <div class="mt-8">
+                <?php include "display.php"; ?>
+            </div>
         </div>
     </div>
+
 </body>
 
 </html>

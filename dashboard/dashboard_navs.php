@@ -53,7 +53,7 @@
     </style>
   </head>
   <body>
-    <nav class="flex items-center bg-green-600 p-2 flex-wrap">
+    <nav class="flex items-center bg-green-600 p-2 flex-wrap shadow-md">
       <button id="sidebar-toggle" class="block relative flex-shrink-0 p-2 mr-2 text-white hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
         <span class="sr-only">Menu</span>
         <svg aria-hidden="true" fill="none" viewbox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
@@ -74,6 +74,7 @@
             </span>
             <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
           </a>
+          <div>
         </li>
         <li>
           <a href="../attendance/attendance form.php" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-white hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">

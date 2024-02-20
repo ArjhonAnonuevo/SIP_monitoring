@@ -31,9 +31,6 @@
   <div id="main">
     <span id="menu" onclick="openNav()">&#9776;</span>
   </div>
-
-
-
 </nav>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

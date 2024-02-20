@@ -21,69 +21,56 @@ include "../dashboard/admin_navs.php";
     <link href=" ../css/dist/tailwind.min.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
-        .hidden {
+        /* .hidden {
             display: none;
         }
 
         .p-4 {
             padding: 1rem;
         }
-
+ 
         .bg-gray-100 {
             background-color: #f9f9f9;
-        }
+        } */
 
-        .table {
-            border-collapse: collapse;
-            width: 100%;
-        }
 
-        .table th,
+        /* .table th,
         .table td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-        }
-
-        .table th {
-            background-color: #f2f2f2;
-        }
-
+        } */
+/* 
         .table tr:nth-child(even) {
             background-color: #f9f9f9;
-        }
+        } */
 
-        .table tr:hover {
-            background-color: #ddd;
-        }
 
-        .search-container {
+        /* .search-container {
             margin-bottom: 1rem;
-        }
+        } */
 
-        .search-input {
+        /* .search-input {
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 8px;
             width: 100%;
-        }
+        } */
     </style>
 </head>
 <body class = "bg-gray-100">
+<div class = "md:ml-48 xl:ml-48 lg:48"> 
 <div class="container mx-auto flex flex-col justify-center mt-10 bg-gray-100 p-4">
     <div class="py-8">
         <h2 class="text-2xl font-bold font-serif">Attendace Display</h2>
-        <div class="shadow overflow-hidden rounded border-b border-gray-200">
-        <div class="search-container">
-        <input type="text" id="searchInput" class="search-input p-2 border border-gray-300 rounded-md">
-        </div>
+        <input type="text" id="searchInput" placeholder = "Search" class="border border-gray-300 rounded-lg px-2 p-2 w-full mb-3">
         <div class="overflow-x-auto">
             <table class="table table-sm shadow-lg bg-white border-collapse table-fixed border-2  w-full">
                 <thead>
-                    <tr class = "hover:bg-stone-100">
-                        <th class="px-8 py-4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Department</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">SIP Number</th>
+                    <tr class = "bg-green-700">
+                        <th class="px-8 py-4 border-b-2 border-gray-200  text-left text-xs font-semibold text-white uppercase tracking-wider">Name</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200  text-left text-xs font-semibold text-white uppercase tracking-wider">Department</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200   text-left text-xs font-semibold text-white uppercase tracking-wider">SIP Number</th>
                     </tr>
                 </thead>
                 <tbody id="internsTable" class = "text-gray-600 text-sm font-light">
@@ -105,7 +92,7 @@ include "../dashboard/admin_navs.php";
       </svg>
   </button>
 </div>
-
+    </div>
     </div>
 
     <script>

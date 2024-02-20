@@ -9,7 +9,6 @@ function generateSecretKey($length = 32) {
 
     return $secretKey;
 }
-
 // Generate a new secret key
 $secretKey = generateSecretKey();
 

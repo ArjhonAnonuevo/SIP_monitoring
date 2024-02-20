@@ -1,5 +1,9 @@
 <?php
-$secretKey = '2WWkTlbi1dmdYARRyLbrjOs6nf5o9uRa'; 
+require_once __DIR__ . '/../vendor/autoload.php'; // Load Composer autoloader
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$secretKey = $_ENV['SECRET_KEY']; // Access the SECRET_KEY
 
 $servername = "localhost";
 $username = "root";
@@ -30,7 +34,9 @@ $sql = "SELECT username FROM interns_account";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<div class='container mx-auto p-4 mt-20 '>";
+    echo "<div class = 'md:ml-48 xl:ml-48 lg:48>'>";
+    echo "<div class='container mx-auto p-4 mt-20 bg-white '>";
+    echo "<h2 class='text-2xl font-bold mb-6 font-sans md:mb-0 md:text-3xl'>Interns  Qr</h2>";
     echo "<input type='text' id='searchInput' placeholder='Search by username' class='mb-4 p-2 border border-gray-300 rounded'>";
     echo "<div id='qrcodes-container' class='flex flex-wrap h-64 overflow-auto'>"; // Create a container for the QR codes with a fixed height and scrollable content
     $counter = 0; // Counter variable for tracking the number of QR codes generated
@@ -105,5 +111,4 @@ if ($result->num_rows > 0) {
 } else {
     echo "No data found in the tables.";
 }
-
 $conn->close();

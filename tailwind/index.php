@@ -94,7 +94,7 @@ if (isset($_GET["username"])) {
             </div>
             <div class="flex items-center p-8 bg-white shadow rounded-lg">
               <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
-                <a href="../monthly reports/reports.php">
+                <a href="../monthly reports/acomplishment_tab.php">
                   <img src="monthly reports.png" class="h-16 w-16 rounded-full" alt="Image 1">
                 </a>
               </div>
