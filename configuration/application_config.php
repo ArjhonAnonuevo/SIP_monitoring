@@ -7,6 +7,5 @@ function getDatabaseConfig() {
         'dbpass' => '',
         'dbname' => 'interns_application',
     ];
-
     return $config;
 }

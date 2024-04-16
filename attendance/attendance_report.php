@@ -1,42 +1,83 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "interns_management";
+include '../configuration/interns_config.php';
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$config = getDatabaseConfig();
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+$dbhost = $config['dbhost'];
+$dbuser = $config['dbuser'];
+$dbpass = $config['dbpass'];
+$dbname = $config['dbname'];
+
+$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$query = "SELECT interns_profile.id, interns_profile.name, interns_profile.mname, interns_profile.lname, interns_profile.department, interns_account.username
-FROM interns_profile
-JOIN interns_account ON interns_profile.id = interns_account.profile_id";
+// Set the character set to UTF-8
+$conn->query("SET NAMES 'utf8'");
 
-$stmt = mysqli_prepare($conn, $query);
+$rowsPerPage = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+
+$offset = ($page - 1) * $rowsPerPage;
+
+// Query to fetch total rows
+$totalRowsQuery = "SELECT COUNT(*) as total FROM interns_profile";
+$totalRowsResult = $conn->query($totalRowsQuery);
+
+if (!$totalRowsResult) {
+    die("Error fetching total rows: " . $conn->error);
+}
+
+$totalRows = $totalRowsResult->fetch_assoc()["total"];
+$totalPages = ceil($totalRows / $rowsPerPage);
+
+$sql = "SELECT ip.name, ip.mname, ip.lname, ip.department, ia.username
+        FROM interns_profile ip
+        JOIN interns_account ia ON ia.profile_id = ip.id
+        LIMIT ?, ?";
+
+$stmt = $conn->prepare($sql);
 if (!$stmt) {
-    die("Query preparation failed: " . mysqli_error($conn));
+    die("Error preparing statement: " . $conn->error);
 }
 
-$result = mysqli_stmt_execute($stmt);
+// Bind parameters
+$stmt->bind_param("ii", $offset, $rowsPerPage);
+
+// Execute the statement
+$result = $stmt->execute();
+
 if (!$result) {
-    die("Query execution failed: " . mysqli_error($conn));
+    die("Error executing query: " . $stmt->error);
 }
 
-$data = array();
-$result = mysqli_stmt_get_result($stmt);
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Construct the "profile_id" field as "Applicant [id]"
-        // $row['profile_id'] = $row['profile_id'];
-        // unset($row['profile_id']); // Remove the 'id' field if you don't need it separately
-        $data[] = $row;
-    }
-}
+// Get result set
+$resultSet = $stmt->get_result();
 
-mysqli_close($conn);
+// Fetch all rows from the result set
+$rows = $resultSet->fetch_all(MYSQLI_ASSOC);
 
+// Create an array with pagination data
+$response = array(
+    "success" => true,
+    "data" => $rows,
+    "totalPages" => $totalPages,
+    "currentPage" => $page
+);
+
+// Set the Content-Type header to JSON
 header('Content-Type: application/json');
-echo json_encode($data);
+
+// Echo the JSON response
+$jsonResponse = json_encode($response, JSON_PRETTY_PRINT);
+if ($jsonResponse === false) {
+    die("Error encoding JSON: " . json_last_error_msg());
+}
+
+echo $jsonResponse;
+
+$stmt->close();
+$conn->close();
 ?>

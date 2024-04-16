@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "html5-qrcode": "^2.3.8",
-    "qrcode-generator": "^1.4.4"
-  }
-}

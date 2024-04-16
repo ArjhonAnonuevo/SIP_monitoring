@@ -18,12 +18,17 @@ class PDF extends TCPDF
     }
 }
 
-// Database connection and query
-$servername = "localhost";
-$username_db = "root";
-$password_db = "";
-$dbname = "interns_management";
-$conn = new mysqli($servername, $username_db, $password_db, $dbname);
+include '../configuration/interns_config.php';
+
+            // Call the getDatabaseConfig function
+            $config = getDatabaseConfig();
+            
+            $dbhost = $config['dbhost'];
+            $dbuser = $config['dbuser'];
+            $dbpass = $config['dbpass'];
+            $dbname = $config['dbname'];
+            
+            $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -48,13 +53,13 @@ if (!$result) {
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $name = $row['fullname'];
-    $department = $row['department']; // Fetch the department
+    $department = $row['department']; 
 } else {
     die("User not found.");
 }
 
 // Get the selected month
-$selectedMonth = isset($_POST['month']) ? $_POST['month'] : date('m');
+$selectedMonth = isset($_POST['selectedMonth']) ? $_POST['selectedMonth'] : date('m');
 
 // Function to generate PDF for the selected month
 function generatePDF($name, $department, $selectedMonth, $conn, $username)
@@ -102,7 +107,7 @@ function generatePDF($name, $department, $selectedMonth, $conn, $username)
         $pdf->SetLineWidth(0.3);
         $pdf->SetFont('courier', 'B');
         $header = ['Date', 'Your Activity', 'Time', 'Status'];
-        $w = [35, 88, 33, 35];
+        $w = [35, 99, 30, 35];
         foreach ($header as $col) {
             $pdf->Cell($w[key($header)], 7, $col, 1, 0, 'C', true);
             next($header);
@@ -131,18 +136,7 @@ function generatePDF($name, $department, $selectedMonth, $conn, $username)
         $pdf->Cell(0, 10, 'No accomplishment records found for the user.', 0, 1, 'C');
     }
 
-    $stmt2->close(); // Close the prepared statement
-
-    $pdf->Ln();
-    $pdf->Ln(10); // Adjust this value to change the line height
-    $pdf->SetFont('courier', '', 8);
-    $pdf->Line(4, $pdf->getPageHeight() - 58, 100, $pdf->getPageHeight() - 58);
-
-    // Set the x-coordinate to add a margin-left
-    $pdf->SetX(39); // set the margin-left
-
-    // Add the "Supervisor" text below the line
-    $pdf->Cell(0, 10, 'Supervisor', 0, 1, 'L');
+    $stmt2->close();
 
     // Output the PDF to the browser
     ob_clean();
@@ -150,7 +144,7 @@ function generatePDF($name, $department, $selectedMonth, $conn, $username)
 }
 
 // Check if the button is clicked
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_pdf'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['download'])) {
     // Call the function to generate PDF with the selected month
     generatePDF($name, $department, $selectedMonth, $conn, $username);
 }

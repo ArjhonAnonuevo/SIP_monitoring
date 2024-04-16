@@ -10,15 +10,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
  $time = filter_var($_POST['time'], FILTER_SANITIZE_STRING);
  $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
  $user_id = $_SESSION['user_id']; // Retrieve user_id from session
+ include '../configuration/interns_config.php';
 
- // Database configuration
- $servername = "localhost";
- $username = "username";
- $password = "password";
- $dbname = "interns_management";
-
+ // Call the getDatabaseConfig function
+ $config = getDatabaseConfig();
+ 
+ $dbhost = $config['dbhost'];
+ $dbuser = $config['dbuser'];
+ $dbpass = $config['dbpass'];
+ $dbname = $config['dbname'];
  // Create connection
- $conn = new mysqli($servername, $username, $password, $dbname);
+ $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
  // Check connection
  if ($conn->connect_error) {
@@ -41,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script type='text/javascript'>alert('Task Recorded');</script>";
         // Redirect to acomplishment_tab.php
         ob_end_clean();
-        header("Location: acomplishment_tab.php");
+        header("Location: acomplishment_tab.html");
         exit();
     } else {
         echo "<script type='text/javascript'>alert('Error: " . $stmt->error . "');</script>";
